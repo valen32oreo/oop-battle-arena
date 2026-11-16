@@ -1,12 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 
-# Fallback import jika GameHelper ada di helpers.py atau models.py
-try:
-    from models import Karakter
-    from helpers import GameHelper
-except ImportError:
-    from models import Karakter, GameHelper
+from models import Karakter
+from helpers import GameHelper
 
 
 class FlatButton(tk.Button):
@@ -67,17 +63,18 @@ class BattleArenaGUI:
 
         self.setup_ui()
         self.update_status()
+        self.tampilkan_log_awal()
 
     def setup_ui(self):
         # Header Utama
         header_frame = tk.Frame(self.root, bg="#0F172A")
         header_frame.pack(pady=(14, 6))
-        
+
         lbl_title = tk.Label(
-            header_frame, 
-            text="⚔️ OOP BATTLE ARENA", 
-            font=("Segoe UI", 15, "bold"), 
-            fg="#F8FAFC", 
+            header_frame,
+            text="⚔️ OOP BATTLE ARENA",
+            font=("Segoe UI", 15, "bold"),
+            fg="#F8FAFC",
             bg="#0F172A"
         )
         lbl_title.pack()
@@ -94,7 +91,6 @@ class BattleArenaGUI:
         self.lbl_player_name = tk.Label(card_player, text=self.player.nama, font=("Segoe UI", 11, "bold"), fg="#F8FAFC", bg="#1E293B")
         self.lbl_player_name.pack(anchor="w", pady=(2, 4))
 
-        # Font diubah ke integer (9)
         self.lbl_player_stats = tk.Label(card_player, text="", font=("Segoe UI", 9), fg="#94A3B8", bg="#1E293B", justify="left")
         self.lbl_player_stats.pack(anchor="w", pady=(0, 6))
 
@@ -109,7 +105,6 @@ class BattleArenaGUI:
         self.lbl_monster_name = tk.Label(card_monster, text=self.monster.nama, font=("Segoe UI", 11, "bold"), fg="#F8FAFC", bg="#1E293B")
         self.lbl_monster_name.pack(anchor="w", pady=(2, 4))
 
-        # Font diubah ke integer (9)
         self.lbl_monster_stats = tk.Label(card_monster, text="", font=("Segoe UI", 9), fg="#94A3B8", bg="#1E293B", justify="left")
         self.lbl_monster_stats.pack(anchor="w", pady=(0, 6))
 
@@ -120,7 +115,6 @@ class BattleArenaGUI:
         log_frame = tk.Frame(self.root, bg="#1E293B", padx=10, pady=8, highlightthickness=1, highlightbackground="#334155")
         log_frame.pack(fill="both", expand=True, padx=20, pady=10)
 
-        # Font diubah ke integer (9)
         tk.Label(log_frame, text="LOG PERTARUNGAN", font=("Segoe UI", 9, "bold"), fg="#94A3B8", bg="#1E293B").pack(anchor="w", pady=(0, 4))
 
         self.txt_log = tk.Text(log_frame, height=8, state="disabled", font=("Consolas", 9), bg="#020617", fg="#F8FAFC", bd=0, highlightthickness=0, wrap="word")
@@ -151,6 +145,12 @@ class BattleArenaGUI:
         self.txt_log.see(tk.END)
         self.txt_log.config(state="disabled")
 
+    def tampilkan_log_awal(self):
+        """Menampilkan header (staticmethod) dan status awal karakter (__str__)."""
+        self.log(GameHelper.format_header("PERTARUNGAN DIMULAI"), "system")
+        self.log(str(self.player), "player")
+        self.log(str(self.monster), "monster")
+
     def update_status(self):
         self.hp_bar_player.update_hp(self.player.hp, self.player.hp_max)
         self.hp_bar_monster.update_hp(self.monster.hp, self.monster.hp_max)
@@ -162,36 +162,46 @@ class BattleArenaGUI:
             text=f"HP: {self.monster.hp}/{self.monster.hp_max}\nAttack: {self.monster.attack} | Armor: {self.monster.armor}"
         )
 
+    def cek_akhir_pertarungan(self):
+        """Mengecek pemenang. Mengembalikan True jika pertarungan sudah selesai."""
+        if self.monster.hp <= 0:
+            exp = GameHelper.hitung_exp(level_lawan=2)
+            self.log(f"\n🎉 {self.player.nama} MENANG! Mendapatkan +{exp} EXP.", "crit")
+            self.nonaktifkan_tombol()
+            messagebox.showinfo("Kemenangan", f"Selamat! {self.player.nama} berhasil mengalahkan {self.monster.nama}!")
+            return True
+
+        if self.player.hp <= 0:
+            self.log(f"\n☠️ {self.player.nama} GUGUR di medan perang!", "monster")
+            self.nonaktifkan_tombol()
+            messagebox.showwarning("Kekalahan", f"{self.player.nama} telah kalah!")
+            return True
+
+        return False
+
     def aksi_serang(self):
         if self.player.hp <= 0 or self.monster.hp <= 0:
             return
 
         is_crit = GameHelper.cek_critical(peluang=0.35)
         dmg = self.player.serang(self.monster, is_critical=is_crit)
-        
+
         if is_crit:
             self.log(f"💥 CRITICAL HIT! {self.player.nama} menyerang -> {dmg} damage!", "crit")
         else:
             self.log(f"⚔️ {self.player.nama} menyerang {self.monster.nama} -> {dmg} damage", "player")
 
-        if self.monster.hp <= 0:
-            exp = GameHelper.hitung_exp(level_lawan=2)
-            self.log(f"\n🎉 {self.player.nama} MENANG! Mendapatkan +{exp} EXP.", "crit")
-            messagebox.showinfo("Kemenangan", f"Selamat! {self.player.nama} berhasil mengalahkan {self.monster.nama}!")
-            self.nonaktifkan_tombol()
-            self.update_status()
+        # Perbarui tampilan dulu, baru popup (agar HP bar sudah sesuai saat popup muncul)
+        self.update_status()
+        if self.cek_akhir_pertarungan():
             return
 
         is_crit_monster = GameHelper.cek_critical(peluang=0.20)
         dmg_m = self.monster.serang(self.player, is_critical=is_crit_monster)
         self.log(f"👹 {self.monster.nama} membalas -> {dmg_m} damage", "monster")
 
-        if self.player.hp <= 0:
-            self.log(f"\n☠️ {self.player.nama} GUGUR di medan perang!", "monster")
-            messagebox.showwarning("Kekalahan", f"{self.player.nama} telah kalah!")
-            self.nonaktifkan_tombol()
-
         self.update_status()
+        self.cek_akhir_pertarungan()
 
     def aksi_heal(self):
         if self.player.hp <= 0 or self.monster.hp <= 0:
@@ -203,11 +213,8 @@ class BattleArenaGUI:
         dmg_m = self.monster.serang(self.player, is_critical=False)
         self.log(f"👹 {self.monster.nama} menyerang saat heal -> {dmg_m} damage", "monster")
 
-        if self.player.hp <= 0:
-            self.log(f"\n☠️ {self.player.nama} GUGUR!", "monster")
-            self.nonaktifkan_tombol()
-
         self.update_status()
+        self.cek_akhir_pertarungan()
 
     def tampil_info_global(self):
         info = Karakter.info_global()
@@ -216,6 +223,7 @@ class BattleArenaGUI:
     def nonaktifkan_tombol(self):
         self.btn_attack.config(state="disabled", bg="#475569")
         self.btn_heal.config(state="disabled", bg="#475569")
+
 
 if __name__ == "__main__":
     root = tk.Tk()

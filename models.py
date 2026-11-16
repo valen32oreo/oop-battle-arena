@@ -1,5 +1,3 @@
-import random
-
 class Karakter:
     # 1. Class Attributes (classmethod.py)
     total_karakter = 0
@@ -19,7 +17,7 @@ class Karakter:
         self.hp_max = hp_awal
         self.attack = attack
         self.armor = armor
-        
+
         Karakter.total_karakter += 1
 
     # 3. Property & Setter dengan Validasi (kategory.py)
@@ -36,7 +34,7 @@ class Karakter:
         else:
             self._hp = nilai
 
-    # 4. Special Method __str__ (constructor.py)
+    # 4. Special Method __str__ (constructor.py / tugas1.py)
     def __str__(self):
         return f"{self.nama} (HP: {self.hp}/{self.hp_max} | ATK: {self.attack} | ARMOR: {self.armor})"
 
@@ -53,21 +51,12 @@ class Karakter:
         return damage_bersih
 
     def heal(self, jumlah=20):
-        self.hp += jumlah
-        return jumlah
+        """Memulihkan HP dan mengembalikan jumlah HP yang benar-benar pulih."""
+        hp_sebelum = self.hp
+        self.hp += jumlah             # setter membatasi HP agar tidak melebihi hp_max
+        return self.hp - hp_sebelum
 
     # 6. Class Method (classmethod.py)
     @classmethod
     def info_global(cls):
         return f"Total Karakter: {cls.total_karakter} | Total Pertarungan: {cls.total_pertarungan}"
-
-
-class GameHelper:
-    # 7. Static Method (staticmethod.py)
-    @staticmethod
-    def cek_critical(peluang=0.3):
-        return random.random() < peluang
-
-    @staticmethod
-    def hitung_exp(level_lawan):
-        return level_lawan * 50
