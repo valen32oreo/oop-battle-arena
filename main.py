@@ -30,9 +30,9 @@ class BattleArenaGUI:
         lbl_title = tk.Label(self.root, text="⚔️ OOP BATTLE ARENA ⚔️", font=("Helvetica", 16, "bold"), fg="#2C3E50")
         lbl_title.pack(pady=10)
 
-        # Container Frame Karakter
+        # Container Frame Karakter (Perbaikan: padx=20)
         frame_karakter = tk.Frame(self.root)
-        frame_karakter.pack(pady=10, fill="x", px=20)
+        frame_karakter.pack(pady=10, fill="x", padx=20)
 
         # Panel Player (Kiri)
         frame_player = tk.LabelFrame(frame_karakter, text=" Hero Player ", font=("Helvetica", 11, "bold"), padx=10, pady=10)
@@ -56,9 +56,9 @@ class BattleArenaGUI:
         self.bar_monster_hp = ttk.Progressbar(frame_monster, length=200, mode='determinate')
         self.bar_monster_hp.pack(pady=8)
 
-        # Log Aktivitas Pertarungan
+        # Log Aktivitas Pertarungan (Perbaikan: padx=20)
         frame_log = tk.LabelFrame(self.root, text=" Log Pertarungan ", font=("Helvetica", 10, "bold"), padx=10, pady=5)
-        frame_log.pack(pady=10, fill="both", expand=True, px=20)
+        frame_log.pack(pady=10, fill="both", expand=True, padx=20)
 
         self.txt_log = tk.Text(frame_log, height=10, state="disabled", font=("Consolas", 9), bg="#F8F9F9")
         self.txt_log.pack(fill="both", expand=True)
