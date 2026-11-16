@@ -1,3 +1,5 @@
+import random
+
 class Karakter:
     # 1. Class Attributes (classmethod.py)
     total_karakter = 0
@@ -36,30 +38,36 @@ class Karakter:
 
     # 4. Special Method __str__ (constructor.py)
     def __str__(self):
-        return f"{self.nama:<15} | HP: {self.hp:>3}/{self.hp_max:<3} | ATK: {self.attack:>2} | ARMOR: {self.armor:>2}"
+        return f"{self.nama} (HP: {self.hp}/{self.hp_max} | ATK: {self.attack} | ARMOR: {self.armor})"
 
     # 5. Interaksi Antar Objek (game.py & class_object.py)
     def serang(self, lawan, is_critical=False):
         Karakter.total_pertarungan += 1
-        print(f"\n⚔️  {self.nama} menyerang {lawan.nama}!")
-        
         damage_dasar = self.attack * 2 if is_critical else self.attack
-        if is_critical:
-            print("💥 CRITICAL HIT! Damage berlipat ganda!")
-
-        lawan.diserang(damage_dasar)
+        damage_diterima = lawan.diserang(damage_dasar)
+        return damage_diterima
 
     def diserang(self, damage_masuk):
         damage_bersih = max(1, damage_masuk - self.armor)
         self.hp -= damage_bersih
-        print(f"🛡️  {self.nama} menerima {damage_bersih} damage (setelah terpotong armor).")
-        print(f"❤️  Sisa HP {self.nama}: {self.hp}")
+        return damage_bersih
+
+    def heal(self, jumlah=20):
+        self.hp += jumlah
+        return jumlah
 
     # 6. Class Method (classmethod.py)
     @classmethod
-    def jumlah_karakter(cls):
-        return cls.total_karakter
-
-    @classmethod
     def info_global(cls):
-        return f"=== STATISTIK GLOBAL GAME ===\nTotal Karakter Dibuat : {cls.total_karakter}\nTotal Ronde Pertarungan : {cls.total_pertarungan}"
+        return f"Total Karakter: {cls.total_karakter} | Total Pertarungan: {cls.total_pertarungan}"
+
+
+class GameHelper:
+    # 7. Static Method (staticmethod.py)
+    @staticmethod
+    def cek_critical(peluang=0.3):
+        return random.random() < peluang
+
+    @staticmethod
+    def hitung_exp(level_lawan):
+        return level_lawan * 50
