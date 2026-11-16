@@ -52,7 +52,7 @@ class BattleArenaGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("OOP Battle Arena")
-        self.root.geometry("640x630")  # Ukuran diperbesar sedikit agar tombol pas di layar
+        self.root.geometry("640x630")
         self.root.configure(bg="#0F172A")
         self.root.resizable(False, False)
 
@@ -94,7 +94,8 @@ class BattleArenaGUI:
         self.lbl_player_name = tk.Label(card_player, text=self.player.nama, font=("Segoe UI", 11, "bold"), fg="#F8FAFC", bg="#1E293B")
         self.lbl_player_name.pack(anchor="w", pady=(2, 4))
 
-        self.lbl_player_stats = tk.Label(card_player, text="", font=("Segoe UI", 8.5), fg="#94A3B8", bg="#1E293B", justify="left")
+        # Font diubah ke integer (9)
+        self.lbl_player_stats = tk.Label(card_player, text="", font=("Segoe UI", 9), fg="#94A3B8", bg="#1E293B", justify="left")
         self.lbl_player_stats.pack(anchor="w", pady=(0, 6))
 
         self.hp_bar_player = CustomHPBar(card_player, width=230, fill_color="#10B981")
@@ -108,7 +109,8 @@ class BattleArenaGUI:
         self.lbl_monster_name = tk.Label(card_monster, text=self.monster.nama, font=("Segoe UI", 11, "bold"), fg="#F8FAFC", bg="#1E293B")
         self.lbl_monster_name.pack(anchor="w", pady=(2, 4))
 
-        self.lbl_monster_stats = tk.Label(card_monster, text="", font=("Segoe UI", 8.5), fg="#94A3B8", bg="#1E293B", justify="left")
+        # Font diubah ke integer (9)
+        self.lbl_monster_stats = tk.Label(card_monster, text="", font=("Segoe UI", 9), fg="#94A3B8", bg="#1E293B", justify="left")
         self.lbl_monster_stats.pack(anchor="w", pady=(0, 6))
 
         self.hp_bar_monster = CustomHPBar(card_monster, width=230, fill_color="#F43F5E")
@@ -118,7 +120,8 @@ class BattleArenaGUI:
         log_frame = tk.Frame(self.root, bg="#1E293B", padx=10, pady=8, highlightthickness=1, highlightbackground="#334155")
         log_frame.pack(fill="both", expand=True, padx=20, pady=10)
 
-        tk.Label(log_frame, text="LOG PERTARUNGAN", font=("Segoe UI", 8.5, "bold"), fg="#94A3B8", bg="#1E293B").pack(anchor="w", pady=(0, 4))
+        # Font diubah ke integer (9)
+        tk.Label(log_frame, text="LOG PERTARUNGAN", font=("Segoe UI", 9, "bold"), fg="#94A3B8", bg="#1E293B").pack(anchor="w", pady=(0, 4))
 
         self.txt_log = tk.Text(log_frame, height=8, state="disabled", font=("Consolas", 9), bg="#020617", fg="#F8FAFC", bd=0, highlightthickness=0, wrap="word")
         self.txt_log.pack(fill="both", expand=True)
@@ -129,7 +132,7 @@ class BattleArenaGUI:
         self.txt_log.tag_config("heal", foreground="#60A5FA")
         self.txt_log.tag_config("system", foreground="#94A3B8", font=("Consolas", 9, "italic"))
 
-        # --- Tombol Aksi (Kini Tampil Sempurna di Bawah Window) ---
+        # --- Tombol Aksi ---
         btn_frame = tk.Frame(self.root, bg="#0F172A")
         btn_frame.pack(pady=(0, 14))
 
