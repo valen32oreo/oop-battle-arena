@@ -35,7 +35,7 @@ Projek game pertarungan interaktif berbasis GUI (Graphical User Interface) mengg
 ## 🚀 Cara Menjalankan Game
 
 1. Pastikan Python 3.x telah terinstal di perangkat.
-2. Buka terminal / PowerShell di dalam folder projek.
+2. Buka terminal VSCode di dalam folder projek.
 3. Jalankan perintah berikut:
    ```bash
    python main.py
