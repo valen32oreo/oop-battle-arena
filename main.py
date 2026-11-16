@@ -120,15 +120,16 @@ class BattleArenaGUI:
 
         tk.Label(log_frame, text="LOG PERTARUNGAN", font=("Segoe UI", 9, "bold"), fg="#94A3B8", bg="#1E293B").pack(anchor="w", pady=(0, 6))
 
-        self.txt_log = tk.Text(log_frame, state="disabled", font=("Consolas", 9.5), bg="#020617", fg="#F8FAFC", bd=0, highlightthickness=0, wrap="word")
+        # Perbaikan: Mengubah font size 9.5 menjadi 10
+        self.txt_log = tk.Text(log_frame, state="disabled", font=("Consolas", 10), bg="#020617", fg="#F8FAFC", bd=0, highlightthickness=0, wrap="word")
         self.txt_log.pack(fill="both", expand=True)
 
-        # Tag Format Warna Teks Log
+        # Tag Format Warna Teks Log (Perbaikan: Ukuran font disesuaikan ke angka bulat)
         self.txt_log.tag_config("player", foreground="#34D399")
         self.txt_log.tag_config("monster", foreground="#FB7185")
-        self.txt_log.tag_config("crit", foreground="#FBBF24", font=("Consolas", 9.5, "bold"))
+        self.txt_log.tag_config("crit", foreground="#FBBF24", font=("Consolas", 10, "bold"))
         self.txt_log.tag_config("heal", foreground="#60A5FA")
-        self.txt_log.tag_config("system", foreground="#94A3B8", font=("Consolas", 9.5, "italic"))
+        self.txt_log.tag_config("system", foreground="#94A3B8", font=("Consolas", 10, "italic"))
 
         # --- Tombol Aksi ---
         btn_frame = tk.Frame(self.root, bg="#0F172A")
