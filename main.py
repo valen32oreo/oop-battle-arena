@@ -22,7 +22,7 @@ class FlatButton(tk.Button):
             relief="flat",
             cursor="hand2",
             font=("Segoe UI", 9, "bold"),
-            padx=14,
+            padx=16,
             pady=8,
             **kwargs
         )
@@ -52,7 +52,7 @@ class BattleArenaGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("OOP Battle Arena")
-        self.root.geometry("640x580")
+        self.root.geometry("640x630")  # Ukuran diperbesar sedikit agar tombol pas di layar
         self.root.configure(bg="#0F172A")
         self.root.resizable(False, False)
 
@@ -71,12 +71,12 @@ class BattleArenaGUI:
     def setup_ui(self):
         # Header Utama
         header_frame = tk.Frame(self.root, bg="#0F172A")
-        header_frame.pack(pady=(18, 10))
+        header_frame.pack(pady=(14, 6))
         
         lbl_title = tk.Label(
             header_frame, 
             text="⚔️ OOP BATTLE ARENA", 
-            font=("Segoe UI", 16, "bold"), 
+            font=("Segoe UI", 15, "bold"), 
             fg="#F8FAFC", 
             bg="#0F172A"
         )
@@ -84,56 +84,54 @@ class BattleArenaGUI:
 
         # Panel Kartu Karakter
         cards_container = tk.Frame(self.root, bg="#0F172A")
-        cards_container.pack(fill="x", padx=24, pady=5)
+        cards_container.pack(fill="x", padx=20, pady=4)
 
         # --- Kartu Player (Kiri) ---
-        card_player = tk.Frame(cards_container, bg="#1E293B", padx=16, pady=14, highlightthickness=1, highlightbackground="#334155")
-        card_player.pack(side="left", expand=True, fill="both", padx=(0, 6))
+        card_player = tk.Frame(cards_container, bg="#1E293B", padx=14, pady=12, highlightthickness=1, highlightbackground="#334155")
+        card_player.pack(side="left", expand=True, fill="both", padx=(0, 5))
 
-        tk.Label(card_player, text="HERO PLAYER", font=("Segoe UI", 9, "bold"), fg="#10B981", bg="#1E293B").pack(anchor="w")
-        self.lbl_player_name = tk.Label(card_player, text=self.player.nama, font=("Segoe UI", 12, "bold"), fg="#F8FAFC", bg="#1E293B")
-        self.lbl_player_name.pack(anchor="w", pady=(2, 6))
+        tk.Label(card_player, text="HERO PLAYER", font=("Segoe UI", 8, "bold"), fg="#10B981", bg="#1E293B").pack(anchor="w")
+        self.lbl_player_name = tk.Label(card_player, text=self.player.nama, font=("Segoe UI", 11, "bold"), fg="#F8FAFC", bg="#1E293B")
+        self.lbl_player_name.pack(anchor="w", pady=(2, 4))
 
-        self.lbl_player_stats = tk.Label(card_player, text="", font=("Segoe UI", 9), fg="#94A3B8", bg="#1E293B", justify="left")
-        self.lbl_player_stats.pack(anchor="w", pady=(0, 8))
+        self.lbl_player_stats = tk.Label(card_player, text="", font=("Segoe UI", 8.5), fg="#94A3B8", bg="#1E293B", justify="left")
+        self.lbl_player_stats.pack(anchor="w", pady=(0, 6))
 
         self.hp_bar_player = CustomHPBar(card_player, width=230, fill_color="#10B981")
         self.hp_bar_player.pack(anchor="w")
 
         # --- Kartu Monster (Kanan) ---
-        card_monster = tk.Frame(cards_container, bg="#1E293B", padx=16, pady=14, highlightthickness=1, highlightbackground="#334155")
-        card_monster.pack(side="right", expand=True, fill="both", padx=(6, 0))
+        card_monster = tk.Frame(cards_container, bg="#1E293B", padx=14, pady=12, highlightthickness=1, highlightbackground="#334155")
+        card_monster.pack(side="right", expand=True, fill="both", padx=(5, 0))
 
-        tk.Label(card_monster, text="ENEMY MONSTER", font=("Segoe UI", 9, "bold"), fg="#F43F5E", bg="#1E293B").pack(anchor="w")
-        self.lbl_monster_name = tk.Label(card_monster, text=self.monster.nama, font=("Segoe UI", 12, "bold"), fg="#F8FAFC", bg="#1E293B")
-        self.lbl_monster_name.pack(anchor="w", pady=(2, 6))
+        tk.Label(card_monster, text="ENEMY MONSTER", font=("Segoe UI", 8, "bold"), fg="#F43F5E", bg="#1E293B").pack(anchor="w")
+        self.lbl_monster_name = tk.Label(card_monster, text=self.monster.nama, font=("Segoe UI", 11, "bold"), fg="#F8FAFC", bg="#1E293B")
+        self.lbl_monster_name.pack(anchor="w", pady=(2, 4))
 
-        self.lbl_monster_stats = tk.Label(card_monster, text="", font=("Segoe UI", 9), fg="#94A3B8", bg="#1E293B", justify="left")
-        self.lbl_monster_stats.pack(anchor="w", pady=(0, 8))
+        self.lbl_monster_stats = tk.Label(card_monster, text="", font=("Segoe UI", 8.5), fg="#94A3B8", bg="#1E293B", justify="left")
+        self.lbl_monster_stats.pack(anchor="w", pady=(0, 6))
 
         self.hp_bar_monster = CustomHPBar(card_monster, width=230, fill_color="#F43F5E")
         self.hp_bar_monster.pack(anchor="w")
 
         # --- Log Pertarungan ---
-        log_frame = tk.Frame(self.root, bg="#1E293B", padx=12, pady=10, highlightthickness=1, highlightbackground="#334155")
-        log_frame.pack(fill="both", expand=True, padx=24, pady=14)
+        log_frame = tk.Frame(self.root, bg="#1E293B", padx=10, pady=8, highlightthickness=1, highlightbackground="#334155")
+        log_frame.pack(fill="both", expand=True, padx=20, pady=10)
 
-        tk.Label(log_frame, text="LOG PERTARUNGAN", font=("Segoe UI", 9, "bold"), fg="#94A3B8", bg="#1E293B").pack(anchor="w", pady=(0, 6))
+        tk.Label(log_frame, text="LOG PERTARUNGAN", font=("Segoe UI", 8.5, "bold"), fg="#94A3B8", bg="#1E293B").pack(anchor="w", pady=(0, 4))
 
-        # Perbaikan: Mengubah font size 9.5 menjadi 10
-        self.txt_log = tk.Text(log_frame, state="disabled", font=("Consolas", 10), bg="#020617", fg="#F8FAFC", bd=0, highlightthickness=0, wrap="word")
+        self.txt_log = tk.Text(log_frame, height=8, state="disabled", font=("Consolas", 9), bg="#020617", fg="#F8FAFC", bd=0, highlightthickness=0, wrap="word")
         self.txt_log.pack(fill="both", expand=True)
 
-        # Tag Format Warna Teks Log (Perbaikan: Ukuran font disesuaikan ke angka bulat)
         self.txt_log.tag_config("player", foreground="#34D399")
         self.txt_log.tag_config("monster", foreground="#FB7185")
-        self.txt_log.tag_config("crit", foreground="#FBBF24", font=("Consolas", 10, "bold"))
+        self.txt_log.tag_config("crit", foreground="#FBBF24", font=("Consolas", 9, "bold"))
         self.txt_log.tag_config("heal", foreground="#60A5FA")
-        self.txt_log.tag_config("system", foreground="#94A3B8", font=("Consolas", 10, "italic"))
+        self.txt_log.tag_config("system", foreground="#94A3B8", font=("Consolas", 9, "italic"))
 
-        # --- Tombol Aksi ---
+        # --- Tombol Aksi (Kini Tampil Sempurna di Bawah Window) ---
         btn_frame = tk.Frame(self.root, bg="#0F172A")
-        btn_frame.pack(pady=(0, 18))
+        btn_frame.pack(pady=(0, 14))
 
         self.btn_attack = FlatButton(btn_frame, bg_color="#EF4444", hover_color="#DC2626", text="⚔️ Serang", command=self.aksi_serang)
         self.btn_attack.grid(row=0, column=0, padx=6)
@@ -151,11 +149,9 @@ class BattleArenaGUI:
         self.txt_log.config(state="disabled")
 
     def update_status(self):
-        # Update Canvas HP Bar
         self.hp_bar_player.update_hp(self.player.hp, self.player.hp_max)
         self.hp_bar_monster.update_hp(self.monster.hp, self.monster.hp_max)
 
-        # Update Teks Informasi (Menggunakan @property hp)
         self.lbl_player_stats.config(
             text=f"HP: {self.player.hp}/{self.player.hp_max}\nAttack: {self.player.attack} | Armor: {self.player.armor}"
         )
@@ -167,7 +163,6 @@ class BattleArenaGUI:
         if self.player.hp <= 0 or self.monster.hp <= 0:
             return
 
-        # Turn Player (Memanggil Static Method)
         is_crit = GameHelper.cek_critical(peluang=0.35)
         dmg = self.player.serang(self.monster, is_critical=is_crit)
         
@@ -176,7 +171,6 @@ class BattleArenaGUI:
         else:
             self.log(f"⚔️ {self.player.nama} menyerang {self.monster.nama} -> {dmg} damage", "player")
 
-        # Cek Kemenangan
         if self.monster.hp <= 0:
             exp = GameHelper.hitung_exp(level_lawan=2)
             self.log(f"\n🎉 {self.player.nama} MENANG! Mendapatkan +{exp} EXP.", "crit")
@@ -185,12 +179,10 @@ class BattleArenaGUI:
             self.update_status()
             return
 
-        # Turn Monster
         is_crit_monster = GameHelper.cek_critical(peluang=0.20)
         dmg_m = self.monster.serang(self.player, is_critical=is_crit_monster)
         self.log(f"👹 {self.monster.nama} membalas -> {dmg_m} damage", "monster")
 
-        # Cek Kekalahan
         if self.player.hp <= 0:
             self.log(f"\n☠️ {self.player.nama} GUGUR di medan perang!", "monster")
             messagebox.showwarning("Kekalahan", f"{self.player.nama} telah kalah!")
@@ -205,7 +197,6 @@ class BattleArenaGUI:
         heal_amount = self.player.heal(20)
         self.log(f"🧪 {self.player.nama} meminum Potion -> HP +{heal_amount}", "heal")
 
-        # Counter attack monster
         dmg_m = self.monster.serang(self.player, is_critical=False)
         self.log(f"👹 {self.monster.nama} menyerang saat heal -> {dmg_m} damage", "monster")
 
@@ -216,7 +207,6 @@ class BattleArenaGUI:
         self.update_status()
 
     def tampil_info_global(self):
-        # Memanggil Class Method info_global()
         info = Karakter.info_global()
         messagebox.showinfo("Statistik Global (Class Method)", info)
 
