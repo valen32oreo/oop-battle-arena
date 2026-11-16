@@ -1,7 +1,7 @@
 import random
 
 class GameHelper:
-    # Static Method (staticmethod.py)
+    # Static Method (Materi/staticmethod.py)
     @staticmethod
     def cek_critical(peluang=0.3):
         """Menentukan apakah serangan mendapatkan Critical Hit berdasarkan peluang (default 30%)."""

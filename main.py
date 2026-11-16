@@ -191,7 +191,7 @@ class BattleArenaGUI:
         else:
             self.log(f"⚔️ {self.player.nama} menyerang {self.monster.nama} -> {dmg} damage", "player")
 
-        # Perbarui tampilan dulu, baru popup (agar HP bar sudah sesuai saat popup muncul)
+        # Perbarui tampilan dulu, baru popup (biar HP bar udah sesuai saat popup muncul)
         self.update_status()
         if self.cek_akhir_pertarungan():
             return
