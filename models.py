@@ -34,7 +34,7 @@ class Karakter:
         else:
             self._hp = nilai
 
-    # 4.Special Method __str__ (Materi/constructor.py | Materi/tugas1.py)
+    # 4Special Method __str__ (Materi/constructor.py | Materi/tugas1.py)
     def __str__(self):
         return f"{self.nama} (HP: {self.hp}/{self.hp_max} | ATK: {self.attack} | ARMOR: {self.armor})"
 
