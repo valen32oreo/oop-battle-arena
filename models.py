@@ -20,7 +20,7 @@ class Karakter:
 
         Karakter.total_karakter += 1
 
-    # 3Property & Setter dengan Validasi (Materi/kategory.py)
+    # Property & Setter dengan Validasi (Materi/kategory.py)
     @property
     def hp(self):
         return self._hp
