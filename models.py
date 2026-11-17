@@ -56,7 +56,7 @@ class Karakter:
         self.hp += jumlah
         return self.hp - hp_sebelum
 
-    # 6.Class Method (Materi/classmethod.py)
+    # 6Class Method (Materi/classmethod.py)
     @classmethod
     def info_global(cls):
         return f"Total Karakter: {cls.total_karakter} | Total Pertarungan: {cls.total_pertarungan}"
