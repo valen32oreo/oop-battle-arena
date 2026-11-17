@@ -38,7 +38,7 @@ class Karakter:
     def __str__(self):
         return f"{self.nama} (HP: {self.hp}/{self.hp_max} | ATK: {self.attack} | ARMOR: {self.armor})"
 
-    # 5.Interaksi Antar Objek (Materi/game.py | Materi/class_object.py)
+    # 5Interaksi Antar Objek (Materi/game.py | Materi/class_object.py)
     def serang(self, lawan, is_critical=False):
         Karakter.total_pertarungan += 1
         damage_dasar = self.attack * 2 if is_critical else self.attack
