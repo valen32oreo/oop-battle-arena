@@ -1,5 +1,5 @@
 class Karakter:
-    # 1Class Attributes (Materi/classmethod.py)
+    # Class Attributes (Materi/classmethod.py)
     total_karakter = 0
     total_pertarungan = 0
 
