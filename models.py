@@ -4,7 +4,7 @@ class Karakter:
     total_pertarungan = 0
 
     def __init__(self, nama: str, hp_awal: int, attack: int, armor: int):
-        # 2. Constructor Validation (Materi/constructor.py | Materi/tugas1.py)
+        # Constructor Validation (Materi/constructor.py | Materi/tugas1.py)
         if not nama.strip():
             raise ValueError("Nama karakter tidak boleh kosong!")
         if hp_awal <= 0:
